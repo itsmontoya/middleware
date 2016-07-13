@@ -11,6 +11,7 @@ type Middleware interface {
 
 // NewMWs returns a new MWs
 func NewMWs(mws ...Middleware) *MWs {
+	reverseMWSlice(mws)
 	return &MWs{mws}
 }
 
@@ -27,4 +28,16 @@ func (m *MWs) Writer(w io.Writer) (out *Writer, err error) {
 // Reader returns a new middleware reader
 func (m *MWs) Reader(r io.Reader) (out *Reader, err error) {
 	return NewReader(r, m.s)
+}
+
+func reverseMWSlice(mws []Middleware) {
+	var n int
+	mc := len(mws) - 1
+	for i := range mws {
+		if n = mc - i; n == i || n < i {
+			break
+		}
+
+		mws[i], mws[n] = mws[n], mws[i]
+	}
 }

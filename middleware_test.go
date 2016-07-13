@@ -42,8 +42,8 @@ func TestB64(t *testing.T) {
 func TestAll(t *testing.T) {
 	if err := testSuite(NewMWs(
 		GZipMW{},
-		NewCryptyMW(cryptyKey, cryptyIV),
 		Base64MW{},
+		NewCryptyMW(cryptyKey, cryptyIV),
 	)); err != nil {
 		t.Error(err)
 	}
