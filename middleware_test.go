@@ -46,6 +46,25 @@ func TestAll(t *testing.T) {
 		NewCryptyMW(cryptyKey, cryptyIV),
 	)); err != nil {
 		t.Error(err)
+		return
+	}
+
+	if err := testSuite(NewMWs(
+		NewCryptyMW(cryptyKey, cryptyIV),
+		GZipMW{},
+		Base64MW{},
+	)); err != nil {
+		t.Error(err)
+		return
+	}
+
+	if err := testSuite(NewMWs(
+		Base64MW{},
+		NewCryptyMW(cryptyKey, cryptyIV),
+		GZipMW{},
+	)); err != nil {
+		t.Error(err)
+		return
 	}
 }
 
