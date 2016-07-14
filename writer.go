@@ -13,7 +13,7 @@ func NewWriter(w io.Writer, mws []Middleware) (out *Writer, err error) {
 		mwl = len(mws)
 	)
 
-	out = &Writer{wcs: make([]io.WriteCloser, mwl)}
+	out = &Writer{w: w, wcs: make([]io.WriteCloser, mwl)}
 
 	for i, mw := range mws {
 		if i == 0 {
@@ -40,11 +40,16 @@ END:
 
 // Writer is the middleware writer interface
 type Writer struct {
+	w   io.Writer
 	wcs []io.WriteCloser
 }
 
 func (w *Writer) Write(b []byte) (n int, err error) {
-	return w.wcs[0].Write(b)
+	if len(w.wcs) > 0 {
+		return w.wcs[0].Write(b)
+	}
+
+	return w.w.Write(b)
 }
 
 // Close will close this writer (and it's underlying middleware writers)

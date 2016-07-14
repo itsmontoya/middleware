@@ -13,7 +13,7 @@ func NewReader(r io.Reader, mws []Middleware) (out *Reader, err error) {
 		mwl = len(mws)
 	)
 
-	out = &Reader{rcs: make([]io.ReadCloser, mwl)}
+	out = &Reader{r: r, rcs: make([]io.ReadCloser, mwl)}
 
 	for i, mw := range mws {
 		if i == 0 {
@@ -40,11 +40,16 @@ END:
 
 // Reader is the middleware readr interface
 type Reader struct {
+	r   io.Reader
 	rcs []io.ReadCloser
 }
 
 func (r *Reader) Read(b []byte) (n int, err error) {
-	return r.rcs[0].Read(b)
+	if len(r.rcs) > 0 {
+		return r.rcs[0].Read(b)
+	}
+
+	return r.r.Read(b)
 }
 
 // Close will close this readr (and it's underlying middleware readrs)
