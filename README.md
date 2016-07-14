@@ -1,4 +1,4 @@
-# Middleware [![GoDoc](https://godoc.org/github.com/itsmontoya/hippy?status.svg)](https://godoc.org/github.com/itsmontoya/hippy) ![Status](https://img.shields.io/badge/status-alpha-red.svg)
+# Middleware [![GoDoc](https://godoc.org/github.com/itsmontoya/middleware?status.svg)](https://godoc.org/github.com/itsmontoya/middleware) ![Status](https://img.shields.io/badge/status-alpha-red.svg)
 Middleware is a middleware assistant for I/O operations
 
 ## Usage
