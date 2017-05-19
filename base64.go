@@ -6,6 +6,9 @@ import (
 	"io/ioutil"
 )
 
+// Base64Name is the name constant for the Base64 middleware
+const Base64Name = "encoding/base64"
+
 // Base64MW is a base64 middleware
 // Note: This should always be the LAST of the modifying middleware
 type Base64MW struct {
@@ -13,7 +16,7 @@ type Base64MW struct {
 
 // Name returns the middleware name
 func (b Base64MW) Name() string {
-	return "encoding/base64"
+	return Base64Name
 }
 
 // Writer returns a new gzip writer
