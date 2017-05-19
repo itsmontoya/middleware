@@ -60,7 +60,7 @@ func (w *Writer) Close() (err error) {
 			continue
 		}
 
-		errs = errs.Append(wc.Close())
+		errs.Push(wc.Close())
 	}
 
 	return errs.Err()
