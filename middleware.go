@@ -30,6 +30,16 @@ func (m *MWs) Reader(r io.Reader) (out *Reader, err error) {
 	return NewReader(r, m.s)
 }
 
+// List will return a list of the middlewares contained with an instance of MWs
+func (m *MWs) List() (l []string) {
+	l = make([]string, 0, len(m.s))
+	for _, mw := range m.s {
+		l = append(l, mw.Name())
+	}
+
+	return
+}
+
 func reverseMWSlice(mws []Middleware) {
 	var n int
 	mc := len(mws) - 1
